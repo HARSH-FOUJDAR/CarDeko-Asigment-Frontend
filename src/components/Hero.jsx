@@ -13,20 +13,19 @@ const Hero = () => {
     transmission: "",
     bodyType: "",
   });
-  const handleImageError = (e) => {
-    // Replace with a guaranteed working image if the original fails
-    e.target.src =
-      "https://images.unsplash.com/photo-1542282088-fe84dd098043?q=80&w=400";
-  };
+
   const getAIRecommendation = async () => {
     try {
       setAiLoading(true);
-      const res = await axios.post("http://localhost:5000/ai/recommend", {
-        budget: filters.budget,
-        fuelType: filters.fuelType,
-        familySize: 5,
-        usage: "Family",
-      });
+      const res = await axios.post(
+        "https://cardeko-asigment-bcakend.onrender.com/ai/recommend",
+        {
+          budget: filters.budget,
+          fuelType: filters.fuelType,
+          familySize: 5,
+          usage: "Family",
+        },
+      );
       setRecommendation(res.data.recommendation);
     } catch (error) {
       console.log(error);
@@ -43,7 +42,9 @@ const Hero = () => {
           Object.entries(appliedFilters).filter(([_, value]) => value !== ""),
         ),
       ).toString();
-      const res = await axios.get(`http://localhost:5000/Cardata?${query}`);
+      const res = await axios.get(
+        `https://cardeko-asigment-bcakend.onrender.com/Cardata?${query}`,
+      );
       setCars(res.data.cars || []);
     } catch (error) {
       console.error("Error fetching cars:", error);
