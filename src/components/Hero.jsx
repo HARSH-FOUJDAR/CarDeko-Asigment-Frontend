@@ -183,7 +183,7 @@ const Hero = () => {
                 disabled={aiLoading}
                 className="bg-gradient-to-r from-green-500 to-emerald-600 hover:scale-105 transition-all text-white px-8 py-3 rounded-xl font-semibold shadow-md"
               >
-                {aiLoading ? "🤖 Consulting AI..." : " Get AI Recommendation"}
+                {aiLoading ? " Consulting AI..." : " Get AI Recommendation"}
               </button>
             </div>
           </div>
