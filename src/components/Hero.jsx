@@ -64,110 +64,128 @@ const Hero = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* FILTER SECTION */}
-      <div className="bg-white py-8 px-4 sm:px-6 shadow-sm border-b">
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 py-10 px-4 sm:px-6 border-b">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">
-            Find Your Car
-          </h2>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
+              Find Your Perfect Car
+            </h2>
+            <p className="text-gray-500 mt-2">
+              Filter cars based on your budget and preferences
+            </p>
+          </div>
 
-          <form className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {/* Budget */}
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold mb-2">Budget</label>
-              <select
-                name="budget"
-                value={filters.budget}
-                onChange={handleChange}
-                className="border rounded-lg p-3"
+          <div className="bg-white p-6 rounded-2xl shadow-lg">
+            <form className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              {/* Budget */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Budget
+                </label>
+                <select
+                  name="budget"
+                  value={filters.budget}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                >
+                  <option value="">Select Budget</option>
+                  <option value="5-10">₹5 - ₹10 Lakh</option>
+                  <option value="10-20">₹10 - ₹20 Lakh</option>
+                  <option value="20-30">₹20 - ₹30 Lakh</option>
+                </select>
+              </div>
+
+              {/* Brand */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Brand
+                </label>
+                <select
+                  name="brand"
+                  value={filters.brand}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                >
+                  <option value="">Select Brand</option>
+                  <option value="maruti">Maruti</option>
+                  <option value="hyundai">Hyundai</option>
+                  <option value="tata">Tata</option>
+                  <option value="mahindra">Mahindra</option>
+                  <option value="kia">Kia</option>
+                </select>
+              </div>
+
+              {/* Fuel */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Fuel Type
+                </label>
+                <select
+                  name="fuelType"
+                  value={filters.fuelType}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                >
+                  <option value="">Select Fuel</option>
+                  <option value="petrol">Petrol</option>
+                  <option value="diesel">Diesel</option>
+                  <option value="electric">Electric</option>
+                </select>
+              </div>
+
+              {/* Transmission */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Transmission
+                </label>
+                <select
+                  name="transmission"
+                  value={filters.transmission}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                >
+                  <option value="">Select Transmission</option>
+                  <option value="manual">Manual</option>
+                  <option value="automatic">Automatic</option>
+                </select>
+              </div>
+
+              {/* Body Type */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Body Type
+                </label>
+                <select
+                  name="bodyType"
+                  value={filters.bodyType}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                >
+                  <option value="">Select Type</option>
+                  <option value="suv">SUV</option>
+                  <option value="sedan">Sedan</option>
+                  <option value="hatchback">Hatchback</option>
+                  <option value="mpv">MPV</option>
+                </select>
+              </div>
+            </form>
+
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => fetchCars(filters)}
+                className="bg-blue-600 hover:bg-blue-700 transition-all text-white px-8 py-3 rounded-xl font-semibold shadow-md"
               >
-                <option value="">Select Budget</option>
-                <option value="5-10">₹5 - ₹10 Lakh</option>
-                <option value="10-20">₹10 - ₹20 Lakh</option>
-                <option value="20-30">₹20 - ₹30 Lakh</option>
-              </select>
-            </div>
+                {loading ? "Searching..." : " Search Cars"}
+              </button>
 
-            {/* Brand */}
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold mb-2">Brand</label>
-              <select
-                name="brand"
-                value={filters.brand}
-                onChange={handleChange}
-                className="border rounded-lg p-3"
+              <button
+                onClick={getAIRecommendation}
+                disabled={aiLoading}
+                className="bg-gradient-to-r from-green-500 to-emerald-600 hover:scale-105 transition-all text-white px-8 py-3 rounded-xl font-semibold shadow-md"
               >
-                <option value="">Select Brand</option>
-                <option value="maruti">Maruti</option>
-                <option value="hyundai">Hyundai</option>
-                <option value="tata">Tata</option>
-                <option value="mahindra">Mahindra</option>
-                <option value="kia">Kia</option>
-              </select>
+                {aiLoading ? "🤖 Consulting AI..." : " Get AI Recommendation"}
+              </button>
             </div>
-
-            {/* Fuel */}
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold mb-2">Fuel Type</label>
-              <select
-                name="fuelType"
-                value={filters.fuelType}
-                onChange={handleChange}
-                className="border rounded-lg p-3"
-              >
-                <option value="">Select Fuel</option>
-                <option value="petrol">Petrol</option>
-                <option value="diesel">Diesel</option>
-                <option value="electric">Electric</option>
-              </select>
-            </div>
-
-            {/* Transmission */}
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold mb-2">Transmission</label>
-              <select
-                name="transmission"
-                value={filters.transmission}
-                onChange={handleChange}
-                className="border rounded-lg p-3"
-              >
-                <option value="">Select Transmission</option>
-                <option value="manual">Manual</option>
-                <option value="automatic">Automatic</option>
-              </select>
-            </div>
-
-            {/* Body Type */}
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold mb-2">Body Type</label>
-              <select
-                name="bodyType"
-                value={filters.bodyType}
-                onChange={handleChange}
-                className="border rounded-lg p-3"
-              >
-                <option value="">Select Type</option>
-                <option value="suv">SUV</option>
-                <option value="sedan">Sedan</option>
-                <option value="hatchback">Hatchback</option>
-                <option value="mpv">MPV</option>
-              </select>
-            </div>
-          </form>
-
-          <div className="mt-6 flex flex-col sm:flex-row gap-4">
-            <button
-              onClick={() => fetchCars(filters)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold w-full sm:w-auto"
-            >
-              {loading ? "Searching..." : "Search Cars"}
-            </button>
-            <button
-              onClick={getAIRecommendation}
-              disabled={aiLoading}
-              className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold w-full sm:w-auto"
-            >
-              {aiLoading ? "Consulting AI..." : "Get AI Recommendation"}
-            </button>
           </div>
         </div>
       </div>
