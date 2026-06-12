@@ -203,7 +203,8 @@ const Hero = () => {
           </div>
         </div>
       )}
-
+<br />
+<br />
       {/* CAR LIST */}
       <div className="py-10 px-4 max-w-7xl mx-auto">
         {loading ? (
