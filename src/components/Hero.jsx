@@ -193,11 +193,11 @@ const Hero = () => {
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {cars.map((car) => (
               <div
                 key={car._id}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition p-4"
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition overflow-hidden"
               >
                 <img
                   src={
@@ -205,13 +205,39 @@ const Hero = () => {
                     "https://imgd.aeplcdn.com/642x361/cw/ec/38219/Mahindra-XUV300-Exterior-147500.jpg?wm=0&q=80"
                   }
                   alt={car.name}
-                  className="w-full h-48 object-cover rounded-lg"
+                  className="w-full h-48 object-cover"
                 />
-                <h3 className="text-lg font-bold mt-3">{car.name}</h3>
-                <p className="text-gray-500">{car.brand}</p>
-                <p className="text-blue-600 font-bold">
-                  ₹ {car.price?.toLocaleString()}
-                </p>
+
+                <div className="p-4">
+                  <h2 className="text-xl font-bold text-gray-800">
+                    {car.name}
+                  </h2>
+
+                  <p className="text-gray-500 mb-3">{car.brand}</p>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                      {car.transmission}
+                    </span>
+
+                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                      {car.bodyType}
+                    </span>
+
+                    <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
+                      {car.fuelType}
+                    </span>
+                  </div>
+
+                  <p className="text-2xl font-bold text-blue-600 mb-3">
+                    ₹ {car.price?.toLocaleString()}
+                  </p>
+
+                  <p className="text-gray-600 text-sm">
+                    A car is a multi-wheeled motor vehicle primarily designed
+                    for passenger transportation.
+                  </p>
+                </div>
               </div>
             ))}
           </div>
